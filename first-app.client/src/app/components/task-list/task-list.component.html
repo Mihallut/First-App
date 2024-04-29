@@ -1,0 +1,28 @@
+<div class="container">
+    <div class="taskList-header-item">
+        <span class="taskList-title">{{tl.name}}</span>
+        <span class="taskList-cards-count">{{tl.cards.length}}</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>edit_square</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+                <span>Delete list</span>
+            </button>
+        </mat-menu>
+    </div>
+    <button mat-fab extended class="add-card-button">
+        <mat-icon>add</mat-icon>
+        Add new card
+    </button>
+    <ul class="hr">
+        <li *ngFor="let card of tl.cards">
+            <app-card [card]="card"></app-card>
+        </li>
+    </ul>
+</div>

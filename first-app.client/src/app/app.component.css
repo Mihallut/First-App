@@ -1,22 +1,32 @@
-﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+﻿.spacer {
+    flex: 1 1 auto;
 }
 
-tr:nth-child(even) {
-    background: #F2F2F2;
+.fixed-toolbar {
+    position: fixed;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
+.mdrawer-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(84, 100, 100);
+    border: 3px;
+    color: rgb(254, 255, 246);
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.mdrawer-header-title {
+    padding-left: 10px;
 }
 
-table {
-    margin: 0 auto;
+.history-tab {
+    max-width: 30%;
+}
+
+.show-more-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

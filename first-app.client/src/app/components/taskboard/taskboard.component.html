@@ -1,0 +1,7 @@
+<div class="root">
+    <ul class="hr">
+        <li *ngFor="let tl of service.taskLists">
+            <app-task-list [tl]="tl"></app-task-list>
+        </li>
+    </ul>
+</div>

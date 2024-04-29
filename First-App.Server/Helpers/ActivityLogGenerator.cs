@@ -29,6 +29,8 @@ namespace First_App.Server.Helpers
                 ChangedCardId = card.Id,
                 ChangedCardTitle = card.Title,
                 CreationDate = DateTime.Now.ToUniversalTime(),
+                ChangedFieldName = nameof(card.TaskList),
+                ValueAfter = await _taskListRepository.GetTaskListNameById(card.TaskListId),
                 ActivityLogTypeId = logType.Id
             };
             await _activityLogRepository.AddActivityLog(activityLog);

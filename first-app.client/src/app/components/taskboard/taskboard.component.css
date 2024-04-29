@@ -1,0 +1,17 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+ul.hr {
+    margin: 0;
+    padding: 4px;
+    display: flex;
+}
+
+ul.hr li {
+    display: inline;
+    flex: 0 0 24%;
+    margin-right: 20px;
+}
