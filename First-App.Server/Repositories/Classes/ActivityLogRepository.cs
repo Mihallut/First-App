@@ -36,6 +36,21 @@ namespace First_App.Server.Repositories.Classes
             return (logs, totalItems);
         }
 
+        public async Task<(IEnumerable<ActivityLog>, int)> GetActivityLogsForCard(Guid cardId, int pageNumber, int pageSize, SortField? sortField, SortOrder? sortOrder)
+        {
+            var query = _context.ActivityLogs
+                .Include(al => al.ActivityLogType).Where(al => al.ChangedCardId == cardId)
+                .AsQueryable();
+
+            var orderedQuery = ApplySorting(query, sortField, sortOrder == SortOrder.Ascending);
+
+            query = orderedQuery.AsNoTracking();
+            int totalItems = await query.CountAsync();
+            var logs = await orderedQuery.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return (logs, totalItems);
+        }
+
         public async Task<ActivityLogType> GetActivityLogTypeByName(string name)
         {
             var result = await _context.ActivityLogTypes.FirstOrDefaultAsync(t => t.Name == name);
