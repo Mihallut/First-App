@@ -31,6 +31,7 @@ namespace First_App.Server.Repositories.Classes
         public async Task<Card> EditCard(Card cardToEdit)
         {
             var card = await GetCardById(cardToEdit.Id);
+            card.Title = cardToEdit.Title;
             card.Description = cardToEdit.Description;
             card.TaskListId = cardToEdit.TaskListId;
             card.DueDate = cardToEdit.DueDate;

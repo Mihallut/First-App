@@ -1,0 +1,97 @@
+<div mat-dialog-container>
+    <mat-toolbar role="toolbar" class="card-header">
+        <span class="fx-spacer"></span>
+        <button mat-icon-button mat-dialog-close>
+            <mat-icon mat-list-icon>close</mat-icon>
+        </button>
+    </mat-toolbar>
+    <mat-dialog-content class="container">
+        <form [formGroup]="editCardForm">
+            <div class="card-info">
+                <span>
+                    <mat-form-field class="full-width">
+                        <mat-label>Title</mat-label>
+                        <input matInput placeholder="Title" formControlName="Title">
+                        <mat-error *ngIf="editCardForm.get('Title')?.errors?.['fluentValidationError']">
+                            {{ editCardForm.get('Title')?.errors?.['fluentValidationError'] }}
+                        </mat-error>
+                    </mat-form-field>
+                </span>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>list</mat-icon> List
+                    </div>
+                    <span>
+                        <mat-form-field class="card-move-to">
+                            <mat-label>Select list</mat-label>
+                            <mat-select formControlName="TaskListId">
+                                <mat-option *ngFor="let taskList of service.taskLists" value="{{taskList.id}}">
+                                    <mat-icon>
+                                        <span class="material-symbols-outlined">
+                                            trending_flat
+                                        </span>
+                                    </mat-icon>
+                                    {{taskList.name}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editCardForm.get('TaskListId')?.errors?.['fluentValidationError']">
+                                {{ editCardForm.get('TaskListId')?.errors?.['fluentValidationError'] }}
+                            </mat-error>
+                        </mat-form-field>
+                    </span>
+                </div>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>event</mat-icon> Due date
+                    </div>
+                    <span>
+                        <mat-form-field>
+                            <mat-label>Due date</mat-label>
+                            <input matInput [min]="minDate" formControlName="DueDate" [matDatepicker]="picker">
+                            <mat-hint>MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="editCardForm.get('DueDate')?.errors?.['fluentValidationError']">
+                                {{ editCardForm.get('DueDate')?.errors?.['fluentValidationError'] }}
+                            </mat-error>
+                        </mat-form-field>
+                    </span>
+                </div>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>sell</mat-icon> Priority
+                    </div>
+                    <span>
+                        <mat-form-field>
+                            <mat-label>Select priority</mat-label>
+                            <mat-select formControlName="PriorityId">
+                                <mat-option [value]="highPriorityId">High</mat-option>
+                                <mat-option [value]="mediumPriorityId">Medium</mat-option>
+                                <mat-option [value]="lowPriorityId">Low</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="editCardForm.get('PriorityId')?.errors?.['fluentValidationError']">
+                                {{ editCardForm.get('PriorityId')?.errors?.['fluentValidationError'] }}
+                            </mat-error>
+                        </mat-form-field>
+                    </span>
+                </div>
+                <div class="card-description">
+                    <h4>Description</h4>
+                    <p>
+                        <mat-form-field class="full-width">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="Description" autosize></textarea>
+                            <mat-error *ngIf="editCardForm.get('Description')?.errors?.['fluentValidationError']">
+                                {{ editCardForm.get('Description')?.errors?.['fluentValidationError'] }}
+                            </mat-error>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </mat-dialog-content>
+    <mat-dialog-actions>
+        <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
+        <button mat-raised-button color="primary" (click)="acceptEditCardModal()">Accept</button>
+    </mat-dialog-actions>
+</div>

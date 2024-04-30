@@ -25,6 +25,7 @@
     "@angular/router": "^16.2.0",
     "guid-typescript": "^1.0.9",
     "jest-editor-support": "*",
+    "ngx-autosize": "^2.0.4",
     "run-script-os": "*",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

@@ -5,8 +5,52 @@
             <mat-icon mat-list-icon>close</mat-icon>
         </button>
     </mat-toolbar>
-    <mat-dialog-content>
-        <div class="card-info"></div>
-        <div class="card-actions"></div>
+    <mat-dialog-content class="container">
+        <div class="card-info">
+            <div class="card-header">
+                <span>
+                    <h3>{{service.curentOpenedModalCard.title}}</h3>
+                </span>
+                <button mat-stroked-button color="primary" class="edit-button" (click)="openEditCardModal()">
+                    <mat-icon>edit_square</mat-icon>
+                    Edit card
+                </button>
+            </div>
+            <div>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>event</mat-icon> Due date
+                    </div>
+                    <span> {{this.transformDate()}}</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>list</mat-icon> List
+                    </div>
+                    <span>{{this.getLaskListName()}}</span>
+                </div>
+                <div class="info-row">
+                    <div class="info-row">
+                        <mat-icon>sell</mat-icon> Priority
+                    </div>
+                    <span
+                        [ngStyle]="{'background-color': getPriorityColor(service.curentOpenedModalCard.priority.name)}">{{service.curentOpenedModalCard.priority.name}}</span>
+                </div>
+                <div class="card-description">
+                    <h4>Description</h4>
+                    <p>{{service.curentOpenedModalCard.description}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-actions">
+            <div>
+                <strong>History</strong>
+            </div>
+            <ul>
+                <li *ngFor="let activityLog of this.service.activityLogsForCard.items">
+                    <app-activity-log [activityLog]="activityLog"></app-activity-log>
+                </li>
+            </ul>
+        </div>
     </mat-dialog-content>
 </div>

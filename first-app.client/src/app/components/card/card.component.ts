@@ -4,8 +4,9 @@ import { DatePipe } from '@angular/common';
 import { TaskboardService } from 'src/app/shared/taskboard.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CardModalComponent } from '../card-modal/card-modal.component';
-
-
+import { EditCardModalComponent } from '../edit-card-modal/edit-card-modal.component';
+import { FormBuilder } from '@angular/forms';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-card',
@@ -16,7 +17,7 @@ import { CardModalComponent } from '../card-modal/card-modal.component';
 export class CardComponent {
   @Input() card!: Card;
 
-  constructor(private datePipe: DatePipe, public service: TaskboardService, public dialog: MatDialog) { }
+  constructor(private datePipe: DatePipe, public service: TaskboardService, public dialog: MatDialog, private formBuilder: FormBuilder) { }
 
   transformDate() {
     return this.datePipe.transform(this.card.dueDate, 'EEE, dd MMM');
@@ -42,10 +43,30 @@ export class CardComponent {
   }
 
   openCardModal() {
-
-    this.dialog.open(CardModalComponent, {
+    let dialogRef = this.dialog.open(CardModalComponent, {
       data: { card: this.card }
     });
 
+    dialogRef.afterClosed().subscribe(result => {
+      this.service.curentOpenedModalCard = this.service.initializeEmptyCard();
+    });
+  }
+
+  openEditCardModal() {
+    this.dialog.open(EditCardModalComponent, {
+      data: { card: this.card }
+    });
+  }
+
+  onSelectionChange(selectedValue: any) {
+    let editCardForm = this.formBuilder.group({
+      Title: [this.card.title],
+      TaskListId: [selectedValue],
+      DueDate: [this.card.dueDate],
+      PriorityId: [this.card.priority.id],
+      Description: [this.card.description]
+    })
+
+    this.service.editCard(this.card.id as Guid, editCardForm)
   }
 }

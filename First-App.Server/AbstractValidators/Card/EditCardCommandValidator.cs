@@ -17,13 +17,11 @@ namespace First_App.Server.AbstractValidators.Card
                 .NotEmpty()
                 .Length(1, 300)
                 .Matches(@"^[A-Za-z0-9\s-]*$")
-                .WithMessage("Project name must be at least 1 character long and no longer than 300 characters. You may use Latin letters only. Digits, special symbols, hyphens and spaces are allowed");
+                .WithMessage("Card title must be at least 1 character long and no longer than 300 characters. You may use Latin letters only. Digits, special symbols, hyphens and spaces are allowed");
 
             RuleFor(x => x.DueDate)
                 .Cascade(CascadeMode.Stop)
-                .NotEmpty()
-                .Must(BeNotYesterday)
-                .WithMessage("Yesterday's date or earlier. Please choose another date no earlier than today.");
+                .NotEmpty();
 
             RuleFor(x => x.PriorityId)
                 .NotEmpty()
@@ -46,11 +44,6 @@ namespace First_App.Server.AbstractValidators.Card
         {
             var result = _cardRepository.GetPriorityById(arg);
             return result.Result != null;
-        }
-
-        private bool BeNotYesterday(DateOnly dueDate)
-        {
-            return dueDate > DateOnly.FromDateTime(DateTime.Today.AddDays(-1));
         }
     }
 }

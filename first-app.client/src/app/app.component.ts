@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { TaskboardService } from './shared/taskboard.service';
 
 @Component({
@@ -14,9 +13,8 @@ import { TaskboardService } from './shared/taskboard.service';
 })
 export class AppComponent implements OnInit {
   opened = false
-  logs: string[] = ['Log 1', 'Log 2', 'Log 3']; // Ваш массив логов
 
-  constructor(private http: HttpClient, public service: TaskboardService) { }
+  constructor(public service: TaskboardService) { }
 
   ngOnInit(): void {
     this.service.getHistoryPaged(1);

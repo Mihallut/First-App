@@ -19,6 +19,14 @@ import { MatListModule } from '@angular/material/list';
 import { ActivityLogComponent } from './components/activity-log/activity-log.component';
 import { CardModalComponent } from './components/card-modal/card-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { EditCardModalComponent } from './components/edit-card-modal/edit-card-modal.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { AutosizeModule } from 'ngx-autosize';
+
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -29,7 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     TaskListComponent,
     CardComponent,
     ActivityLogComponent,
-    CardModalComponent
+    CardModalComponent,
+    EditCardModalComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +54,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSidenavModule,
     MatListModule,
     MatDialogModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    AutosizeModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
