@@ -9,3 +9,15 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
     overflow: auto;
 }
+
+.mat-mdc-snack-bar-container {
+    &.success-snackbar {
+        --mdc-snackbar-supporting-text-color: #00ff2a;
+    }
+}
+
+.mat-mdc-snack-bar-container {
+    &.error-snackbar {
+        --mdc-snackbar-supporting-text-color: #ff4444;
+    }
+}

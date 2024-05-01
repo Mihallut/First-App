@@ -19,11 +19,6 @@ namespace First_App.Server.AbstractValidators.TaskList
                 .WithMessage("Project name must be at least 1 character long and no longer than 300 characters. You may use Latin letters only. Digits, special symbols, hyphens and spaces are allowed")
                 .Must(BeUniqueName)
                 .WithMessage("This task list already created.");
-
-            RuleFor(x => x.Id)
-                .NotEmpty()
-                .Must(ExistInDb)
-                .WithMessage("Task list with provided guid does not exist in database.");
         }
 
         private bool ExistInDb(Guid guid)

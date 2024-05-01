@@ -27,8 +27,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { AutosizeModule } from 'ngx-autosize';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
-
+import { AddCardModalComponent } from './components/add-card-modal/add-card-modal.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { DeleteDialogModalComponent } from './components/delete-dialog-modal/delete-dialog-modal.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CardComponent,
     ActivityLogComponent,
     CardModalComponent,
-    EditCardModalComponent
+    EditCardModalComponent,
+    AddCardModalComponent,
+    DeleteDialogModalComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatNativeDateModule,
     AutosizeModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -5,6 +5,11 @@
     padding: 5px;
 }
 
+.warn-button .mat-icon,
+.warn-button span {
+    color: red;
+}
+
 .card-title {
     margin-left: 10px;
 }

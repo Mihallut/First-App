@@ -8,6 +8,11 @@
     margin-bottom: 10px;
 }
 
+.warn-button .mat-icon,
+.warn-button span {
+    color: red;
+}
+
 .taskList-title {
     font-weight: bold;
     padding-left: 10px;
@@ -39,4 +44,25 @@ ul.hr {
 ul.hr li {
     list-style: none;
     margin-top: 15px;
+}
+
+
+.taskList-add-dialog {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.taskList-add-dialog form mat-form-field {
+    align-items: center;
+    width: 100%;
+}
+
+.button-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }

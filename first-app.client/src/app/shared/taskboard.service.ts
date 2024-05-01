@@ -45,9 +45,17 @@ export class TaskboardService {
     }
 
     urlTaskLists: string = environment.apiBaseUrl + "/TaskList"
+    urlTaskListDelete: string = environment.apiBaseUrl + "/TaskList/delete"
+    urlTaskListAdd: string = environment.apiBaseUrl + "/TaskList/add"
+    urlTaskListEdit: string = environment.apiBaseUrl + "/TaskList/edit"
+
+
     urlActivityLog: string = environment.apiBaseUrl + "/ActivityLog"
     urlActivityLogCard: string = environment.apiBaseUrl + "/ActivityLog/card"
+
     urlCardEdit: string = environment.apiBaseUrl + "/Card/edit"
+    urlCardAdd: string = environment.apiBaseUrl + "/Card/add"
+    urlCardDelete: string = environment.apiBaseUrl + "/Card/delete"
 
 
     refreshList() {
@@ -60,6 +68,18 @@ export class TaskboardService {
                     console.log(err)
                 }
             })
+    }
+
+    addTaskList(addTaskListForm: FormGroup) {
+        return this.http.post(this.urlTaskListAdd, addTaskListForm.value);
+    }
+
+    editTaskList(_taskListId: Guid, addTaskListForm: FormGroup) {
+        return this.http.patch(this.urlTaskListEdit + '/' + _taskListId, addTaskListForm.value);
+    }
+
+    deleteTaskList(_taskListId: Guid) {
+        return this.http.delete(this.urlTaskListDelete + '/' + _taskListId);
     }
 
     getHistoryPaged(_pageNumber: number) {
@@ -98,26 +118,15 @@ export class TaskboardService {
     }
 
     editCard(_cardId: Guid, editCardForm: FormGroup) {
+        return this.http.patch(this.urlCardEdit + '/' + _cardId, editCardForm.value);
+    }
 
-        var _card = editCardForm.value as AddEditCard;
+    deleteCard(_cardId: Guid) {
+        return this.http.delete(this.urlCardDelete + '/' + _cardId);
+    }
 
-        this.http.patch(this.urlCardEdit + '/' + _cardId, editCardForm.value)
-            .subscribe({
-                next: res => {
-                    if (this.curentOpenedModalCard.title != '') {
-                        this.curentOpenedModalCard = res as Card
-                        this.getCardHistoryPaged(1, this.curentOpenedModalCard.id);
-                    }
-                    this.refreshList();
-                },
-                error: err => {
-                    if (err.status == 400) {
-                        // Bad Request response
-                        this.setFluentValidationErrors(editCardForm, err.error.errors);
-                    }
-                    console.log(err)
-                }
-            })
+    addCard(editCardForm: FormGroup) {
+        return this.http.post(this.urlCardAdd, editCardForm.value);
     }
 
     setFluentValidationErrors(form: FormGroup, err: any): void {

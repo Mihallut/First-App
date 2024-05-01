@@ -52,7 +52,7 @@ export class CardModalComponent implements OnInit {
 
   openEditCardModal() {
     this.dialog.open(EditCardModalComponent, {
-      data: { card: this.data.card }
+      data: { card: this.service.curentOpenedModalCard }
     });
   }
 }

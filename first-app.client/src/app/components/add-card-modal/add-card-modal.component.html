@@ -6,14 +6,14 @@
         </button>
     </mat-toolbar>
     <mat-dialog-content class="container">
-        <form [formGroup]="editCardForm">
+        <form [formGroup]="addCardForm">
             <div class="card-info">
                 <span>
                     <mat-form-field class="full-width">
                         <mat-label>Title</mat-label>
                         <input matInput placeholder="Title" formControlName="Title">
-                        <mat-error *ngIf="editCardForm.get('Title')?.errors?.['fluentValidationError']">
-                            {{ editCardForm.get('Title')?.errors?.['fluentValidationError'] }}
+                        <mat-error *ngIf="addCardForm.get('Title')?.errors?.['fluentValidationError']">
+                            {{ addCardForm.get('Title')?.errors?.['fluentValidationError'] }}
                         </mat-error>
                     </mat-form-field>
                 </span>
@@ -34,8 +34,8 @@
                                     {{taskList.name}}
                                 </mat-option>
                             </mat-select>
-                            <mat-error *ngIf="editCardForm.get('TaskListId')?.errors?.['fluentValidationError']">
-                                {{ editCardForm.get('TaskListId')?.errors?.['fluentValidationError'] }}
+                            <mat-error *ngIf="addCardForm.get('TaskListId')?.errors?.['fluentValidationError']">
+                                {{ addCardForm.get('TaskListId')?.errors?.['fluentValidationError'] }}
                             </mat-error>
                         </mat-form-field>
                     </span>
@@ -51,8 +51,8 @@
                             <mat-hint>MM/DD/YYYY</mat-hint>
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="editCardForm.get('DueDate')?.errors?.['fluentValidationError']">
-                                {{ editCardForm.get('DueDate')?.errors?.['fluentValidationError'] }}
+                            <mat-error *ngIf="addCardForm.get('DueDate')?.errors?.['fluentValidationError']">
+                                {{ addCardForm.get('DueDate')?.errors?.['fluentValidationError'] }}
                             </mat-error>
                         </mat-form-field>
                     </span>
@@ -69,8 +69,8 @@
                                 <mat-option [value]="mediumPriorityId">Medium</mat-option>
                                 <mat-option [value]="lowPriorityId">Low</mat-option>
                             </mat-select>
-                            <mat-error *ngIf="editCardForm.get('PriorityId')?.errors?.['fluentValidationError']">
-                                {{ editCardForm.get('PriorityId')?.errors?.['fluentValidationError'] }}
+                            <mat-error *ngIf="addCardForm.get('PriorityId')?.errors?.['fluentValidationError']">
+                                {{ addCardForm.get('PriorityId')?.errors?.['fluentValidationError'] }}
                             </mat-error>
                         </mat-form-field>
                     </span>
@@ -81,8 +81,8 @@
                         <mat-form-field class="full-width">
                             <mat-label>Description</mat-label>
                             <textarea matInput formControlName="Description" autosize></textarea>
-                            <mat-error *ngIf="editCardForm.get('Description')?.errors?.['fluentValidationError']">
-                                {{ editCardForm.get('Description')?.errors?.['fluentValidationError'] }}
+                            <mat-error *ngIf="addCardForm.get('Description')?.errors?.['fluentValidationError']">
+                                {{ addCardForm.get('Description')?.errors?.['fluentValidationError'] }}
                             </mat-error>
                         </mat-form-field>
                     </p>
@@ -91,7 +91,7 @@
         </form>
     </mat-dialog-content>
     <mat-dialog-actions>
-        <button mat-raised-button color="primary" (click)="saveEditCardModal()">Save</button>
+        <button mat-raised-button color="primary" (click)="saveAddCardModal()">Save</button>
         <button mat-raised-button mat-dialog-close color="warn">Cancel</button>
     </mat-dialog-actions>
 </div>

@@ -7,6 +7,8 @@ import { CardModalComponent } from '../card-modal/card-modal.component';
 import { EditCardModalComponent } from '../edit-card-modal/edit-card-modal.component';
 import { FormBuilder } from '@angular/forms';
 import { Guid } from 'guid-typescript';
+import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
+import { DeleteDialogModalComponent } from '../delete-dialog-modal/delete-dialog-modal.component';
 
 @Component({
   selector: 'app-card',
@@ -17,7 +19,14 @@ import { Guid } from 'guid-typescript';
 export class CardComponent {
   @Input() card!: Card;
 
-  constructor(private datePipe: DatePipe, public service: TaskboardService, public dialog: MatDialog, private formBuilder: FormBuilder) { }
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(private datePipe: DatePipe,
+    public service: TaskboardService,
+    public dialog: MatDialog,
+    private formBuilder: FormBuilder,
+    private _snackBar: MatSnackBar) { }
 
   transformDate() {
     return this.datePipe.transform(this.card.dueDate, 'EEE, dd MMM');
@@ -67,6 +76,31 @@ export class CardComponent {
       Description: [this.card.description]
     })
 
-    this.service.editCard(this.card.id as Guid, editCardForm)
+    this.service.editCard(this.card.id as Guid, editCardForm).subscribe({
+      next: res => {
+        this.service.refreshList();
+        this._snackBar.open('Card successfuly moved', 'Ok', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['success-snackbar'],
+          duration: 3000
+        });
+      },
+      error: err => {
+        this._snackBar.open('Server respond with status code ' + err.status, 'Ok', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['error-snackbar'],
+          duration: 10000
+        });
+        console.log(err)
+      }
+    })
+  }
+
+  deleteCardClick() {
+    let dialogRef = this.dialog.open(DeleteDialogModalComponent, {
+      data: { componentName: this.card.title, componentId: this.card.id, componentType: 'card' }
+    });
   }
 }

@@ -1,22 +1,38 @@
 <div class="container">
-    <div class="taskList-header-item">
+    <div *ngIf="!isEditingList" class="taskList-header-item">
         <span class="taskList-title">{{tl.name}}</span>
         <span class="taskList-cards-count">{{tl.cards.length}}</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-            <button mat-menu-item>
+            <button mat-menu-item (click)="toggleAddList()">
                 <mat-icon>edit_square</mat-icon>
                 <span>Edit</span>
             </button>
-            <button mat-menu-item>
+            <button mat-menu-item class="warn-button" (click)="deleteTaskListClick()">
                 <mat-icon>delete</mat-icon>
                 <span>Delete list</span>
             </button>
         </mat-menu>
     </div>
-    <button mat-fab extended class="add-card-button">
+    <div *ngIf="isEditingList" class="taskList-add-dialog">
+        <form [formGroup]="editTaskListForm">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Enter list name..." formControlName="NewName">
+                <mat-error *ngIf="editTaskListForm.get('NewName')?.errors?.['fluentValidationError']">
+                    {{ editTaskListForm.get('NewName')?.errors?.['fluentValidationError'] }}
+                </mat-error>
+            </mat-form-field>
+        </form>
+
+        <div class="button-section">
+            <button mat-raised-button color="primary" (click)="saveEditTaskList()">Save</button>
+            <button mat-stroked-button color="warn" (click)="toggleAddList()">Cancel</button>
+        </div>
+    </div>
+    <button mat-fab extended class="add-card-button" (click)="openAddCardModal()">
         <mat-icon>add</mat-icon>
         Add new card
     </button>

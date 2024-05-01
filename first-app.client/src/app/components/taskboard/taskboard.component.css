@@ -15,3 +15,38 @@ ul.hr li {
     flex: 0 0 24%;
     margin-right: 20px;
 }
+
+.taskList-add-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.add-title {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.taskList-add-dialog {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.taskList-add-dialog form mat-form-field {
+    align-items: center;
+    width: 100%;
+}
+
+.button-section {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
