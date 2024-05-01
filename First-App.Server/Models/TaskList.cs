@@ -9,5 +9,7 @@ namespace First_App.Server.Models
         [Required]
         public string Name { get; set; }
         public List<Card> Cards { get; set; }
+        public DateTime CreationDate { get; set; }
+
     }
 }

@@ -22,7 +22,8 @@ namespace First_App.Server.Handlers.TaskLists
             var taskList = new TaskList
             {
                 Id = Guid.NewGuid(),
-                Name = request.Name
+                Name = request.Name,
+                CreationDate = DateTime.Now.ToUniversalTime(),
             };
             var addedTaskList = await _taskListRepository.AddTaskList(taskList);
 

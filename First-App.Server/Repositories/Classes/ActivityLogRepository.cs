@@ -62,7 +62,7 @@ namespace First_App.Server.Repositories.Classes
             switch (sortField)
             {
                 case SortField.CreationDate:
-                    return ascending ? query.OrderBy(ucl => ucl.CreationDate) : query.OrderByDescending(user => user.CreationDate);
+                    return ascending ? query.OrderBy(log => log.CreationDate) : query.OrderByDescending(log => log.CreationDate);
                 default:
                     throw new ArgumentException("Invalid sort field");
             }

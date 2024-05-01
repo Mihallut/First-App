@@ -39,7 +39,19 @@ namespace First_App.Server.Repositories.Classes
         public async Task<List<TaskList>> GetAllTaskLists()
         {
             var result = await _context.TaskLists.Include(tl => tl.Cards).ThenInclude(c => c.Priority).ToListAsync();
-            return result;
+            var resultOrdered = ApplySorting(result).ToList();
+            return resultOrdered;
+        }
+
+        private IOrderedEnumerable<TaskList> ApplySorting(IEnumerable<TaskList> query)
+        {
+            var orderedList = query.OrderBy(tl => tl.CreationDate);
+            foreach (var taskList in orderedList)
+            {
+                var orderedCards = taskList.Cards.OrderBy(c => c.DueDate).ToList();
+                taskList.Cards = orderedCards;
+            }
+            return orderedList;
         }
 
         public async Task<TaskList> GetTaskListById(Guid id)
