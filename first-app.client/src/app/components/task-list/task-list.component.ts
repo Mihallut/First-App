@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 import { MatDialogRef, MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskList } from 'src/app/shared/models/taskList.model';
 import { AddCardModalComponent } from '../add-card-modal/add-card-modal.component';
-import { CardModalComponent } from '../card-modal/card-modal.component';
 import { DeleteDialogModalComponent } from '../delete-dialog-modal/delete-dialog-modal.component';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';

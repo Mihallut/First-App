@@ -67,6 +67,8 @@ import { DeleteDialogModalComponent } from './components/delete-dialog-modal/del
     MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+  ]
 })
 export class AppModule { }

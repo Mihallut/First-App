@@ -82,6 +82,22 @@ export class TaskboardService {
         return this.http.delete(this.urlTaskListDelete + '/' + _taskListId);
     }
 
+    updateHistoryPaged() {
+        const body = {
+            pageNumber: 1
+        }
+        this.http.post(this.urlActivityLog, body)
+            .subscribe({
+                next: res => {
+                    var resHP = res as HistoryPaged
+                    this.historyPaged = resHP;
+                },
+                error: err => {
+                    console.log(err)
+                }
+            })
+    }
+
     getHistoryPaged(_pageNumber: number) {
         const body = {
             pageNumber: _pageNumber

@@ -10,6 +10,7 @@ body {
     overflow: auto;
 }
 
+
 .mat-mdc-snack-bar-container {
     &.success-snackbar {
         --mdc-snackbar-supporting-text-color: #00ff2a;

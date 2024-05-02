@@ -61,7 +61,7 @@ export class EditCardModalComponent {
           this.service.getCardHistoryPaged(1, this.service.curentOpenedModalCard.id);
         }
         this.service.refreshList();
-        this.service.getHistoryPaged(1)
+        this.service.updateHistoryPaged()
         this.dialogRef.close();
         this._snackBar.open('Card successfuly edited', 'Ok', {
           horizontalPosition: this.horizontalPosition,

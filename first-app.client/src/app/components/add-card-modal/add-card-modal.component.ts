@@ -58,7 +58,7 @@ export class AddCardModalComponent {
       .subscribe({
         next: res => {
           this.service.refreshList();
-          this.service.getHistoryPaged(1)
+          this.service.updateHistoryPaged()
           this.dialogRef.close();
           this._snackBar.open('New card added to ' + this.data.taskList.name, 'Ok', {
             horizontalPosition: this.horizontalPosition,

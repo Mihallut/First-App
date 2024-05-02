@@ -1,38 +1,36 @@
-﻿<div>
-    <mat-drawer-container>
-        <mat-drawer #drawer [(opened)]="opened" mode="over" position="end" class="history-tab">
-            <div class="mdrawer-header-item">
-                <span class="mdrawer-header-title">History</span>
-                <button mat-icon-button (click)="opened=!opened">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </div>
-            <div class="history-list">
-                <ul>
-                    <li *ngFor="let activityLog of service.historyPaged.items">
-                        <app-activity-log [activityLog]="activityLog"></app-activity-log>
-                    </li>
-                </ul>
-            </div>
-            <div class="show-more-btn">
-                <button mat-stroked-button color="primary" (click)="ShowMoreClick()">
-                    <mat-icon>
-                        replay
-                    </mat-icon>
-                    Show more
-                </button>
-            </div>
-        </mat-drawer>
-        <mat-drawer-content>
-            <mat-toolbar #toolbar class="fixed-toolbar">
-                <span>My Taskboard</span>
-                <span class="spacer"></span>
-                <button mat-icon-button class="icon" title="History" (click)="opened=!opened">
-                    <mat-icon>history</mat-icon>
-                </button>
-            </mat-toolbar>
-            <mat-toolbar #placeholder></mat-toolbar>
-            <router-outlet></router-outlet>
-        </mat-drawer-content>
-    </mat-drawer-container>
-</div>
+﻿<mat-drawer-container class="full-height">
+    <mat-drawer #drawer [(opened)]="opened" mode="over" position="end" class="history-tab">
+        <div class="mdrawer-header-item">
+            <span class="mdrawer-header-title">History</span>
+            <button mat-icon-button (click)="opened=!opened">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div class="history-list">
+            <ul>
+                <li *ngFor="let activityLog of service.historyPaged.items">
+                    <app-activity-log [activityLog]="activityLog"></app-activity-log>
+                </li>
+            </ul>
+        </div>
+        <div class="show-more-btn">
+            <button mat-stroked-button color="primary" (click)="ShowMoreClick()">
+                <mat-icon>
+                    replay
+                </mat-icon>
+                Show more
+            </button>
+        </div>
+    </mat-drawer>
+    <mat-drawer-content>
+        <mat-toolbar #toolbar class="fixed-toolbar">
+            <span>My Taskboard</span>
+            <span class="spacer"></span>
+            <button mat-icon-button class="icon" title="History" (click)="opened=!opened">
+                <mat-icon>history</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-toolbar #placeholder></mat-toolbar>
+        <app-taskboard></app-taskboard>
+    </mat-drawer-content>
+</mat-drawer-container>
