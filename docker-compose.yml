@@ -1,0 +1,55 @@
+version: '3.4'
+
+networks:
+  dev:
+    driver: bridge
+
+services:
+  backend:
+    image: docker.io/library/app-server
+    depends_on:
+      - "postgres"
+    container_name: first-app-server
+    ports:
+      - "5152:80"
+    build:
+      context: ./Backend/First-App.Server/
+      dockerfile: Dockerfile
+    environment:
+      - CONNECTION_STRING=Host=first-app-db;Port=5432;Database=TaskBoard;Username=postgres;Password=admin;Include Error Detail=True;
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - dev
+
+  postgres:
+    image: postgres:latest
+    container_name: first-app-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=TaskBoard
+    ports:
+      - "5433:5432"
+    restart: always
+    volumes:
+      - app_data:/var/lib/postgresql/data
+    networks:
+      - dev
+
+  frontend:
+    image: docker.io/library/app-client
+    depends_on:
+      - "backend"
+    container_name: first-app-client
+    ports:
+      - "8081:81"
+    build:
+      context: ./First-App.Client/
+      dockerfile: Dockerfile
+    networks:
+      - dev
+
+volumes:
+  app_data:
+
+

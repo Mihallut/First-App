@@ -33,6 +33,20 @@ namespace First_App.Server.Context
             modelBuilder.Entity<ActivityLog>().HasOne(x => x.ActivityLogType).WithMany(x => x.ActivityLogs).HasForeignKey(x => x.ActivityLogTypeId);
             modelBuilder.Entity<ActivityLog>().HasOne(x => x.ChangedCard).WithMany(x => x.ActivityLogs).HasForeignKey(x => x.ChangedCardId);
 
+            modelBuilder.Entity<ActivityLogType>().HasData(
+                new ActivityLogType { Id = 1, Name = "Create" },
+                new ActivityLogType { Id = 2, Name = "Edit" },
+                new ActivityLogType { Id = 3, Name = "Delete" },
+                new ActivityLogType { Id = 4, Name = "Move" },
+                new ActivityLogType { Id = 5, Name = "Rename" }
+            );
+
+            modelBuilder.Entity<Priority>().HasData(
+                new Priority { Id = 1, Name = "High" },
+                new Priority { Id = 2, Name = "Medium" },
+                new Priority { Id = 3, Name = "Low" }
+            );
+
             base.OnModelCreating(modelBuilder);
         }
     }

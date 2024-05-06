@@ -19,21 +19,6 @@ namespace First_App.Server
             var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
             builder.Services.AddDbContext<ApiDbContext>(options => options.UseNpgsql(connectionString));
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddPolicy("CorsPolicy", builder =>
-                {
-                    var corsOrigins = Environment.GetEnvironmentVariable("CORS_ORIGINS")?.Split(',');
-                    if (corsOrigins != null)
-                    {
-                        builder.WithOrigins(corsOrigins)
-                           .AllowAnyMethod()
-                           .AllowAnyHeader()
-                           .AllowCredentials();
-                    }
-                });
-            });
-
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
@@ -47,7 +32,13 @@ namespace First_App.Server
             app.UseDefaultFiles();
             app.UseStaticFiles();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(options =>
+            {
+                options.AllowAnyHeader();
+                options.AllowAnyMethod();
+                options.AllowAnyOrigin();
+            });
+
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
