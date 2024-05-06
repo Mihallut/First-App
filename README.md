@@ -16,7 +16,7 @@ ng serve
 ```
 # Starting Backend localy
 
-to run backend first thing you need to specify your connection string `CONNECTION_STRING` to the database. You can do it by adding .env with the connection string to your database file to .\Backend\First-App.Server\ 
+to run backend first thing you need to specify your connection string `CONNECTION_STRING` to the database. You can do it by adding a .env file with the connection string to your database to .\Backend\First-App.Server\ 
 Then run 
 ```sh
 dotnet restore
