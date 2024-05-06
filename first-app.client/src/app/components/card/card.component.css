@@ -1,0 +1,48 @@
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+}
+
+.warn-button .mat-icon,
+.warn-button span {
+    color: red;
+}
+
+.card-title {
+    margin-left: 10px;
+}
+
+.description {
+    text-align: left;
+}
+
+.card-date {
+    display: flex;
+    align-items: center;
+}
+
+.date {
+    margin-left: 5px;
+}
+
+.card-priority {
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 7px;
+    padding-right: 7px;
+    width: min-content;
+}
+
+.priority-name {
+    margin-left: 5px;
+}
+
+.card-move-to {
+    display: flex;
+    padding: 7px;
+}

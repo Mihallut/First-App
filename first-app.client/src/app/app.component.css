@@ -1,22 +1,41 @@
 ﻿:host {
-    max-width: 1280px;
-    padding: 2rem;
-    text-align: center;
+    display: block;
+    height: inherit;
 }
 
-tr:nth-child(even) {
-    background: #F2F2F2;
+.full-height {
+    height: 100%;
 }
 
-tr:nth-child(odd) {
-    background: #FFF;
+.spacer {
+    flex: 1 1 auto;
 }
 
-th, td {
-    padding-left: 1rem;
-    padding-right: 1rem;
+.fixed-toolbar {
+    position: fixed;
 }
 
-table {
-    margin: 0 auto;
+.mdrawer-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    margin-bottom: 10px;
+    background-color: rgb(84, 100, 100);
+    border: 3px;
+    color: rgb(254, 255, 246);
+}
+
+.mdrawer-header-title {
+    padding-left: 10px;
+}
+
+.history-tab {
+    max-width: 30%;
+}
+
+.show-more-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

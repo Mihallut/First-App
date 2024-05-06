@@ -1,0 +1,43 @@
+.fx-spacer {
+    flex: 1 1 auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    height: 450px;
+}
+
+.card-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+}
+
+.card-description {
+    margin-top: 10px;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.full-width {
+    width: 100%;
+}
+
+textarea {
+    height: max-content;
+}

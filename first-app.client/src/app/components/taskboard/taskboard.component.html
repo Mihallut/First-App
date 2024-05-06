@@ -1,0 +1,31 @@
+<div class="root">
+    <ul class="hr">
+        <li *ngFor="let tl of service.taskLists">
+            <app-task-list [tl]="tl"></app-task-list>
+        </li>
+        <li>
+            <div *ngIf="!isAddingList" class="taskList-add-item">
+                <span class="add-title">Add another list</span>
+                <button mat-icon-button (click)="toggleAddList()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+            <div *ngIf="isAddingList" class="taskList-add-dialog">
+                <form [formGroup]="addTaskListForm">
+                    <mat-form-field>
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Enter list name..." formControlName="Name">
+                        <mat-error *ngIf="addTaskListForm.get('Name')?.errors?.['fluentValidationError']">
+                            {{ addTaskListForm.get('Name')?.errors?.['fluentValidationError'] }}
+                        </mat-error>
+                    </mat-form-field>
+                </form>
+
+                <div class="button-section">
+                    <button mat-raised-button color="primary" (click)="saveAddTaskList()">Save</button>
+                    <button mat-stroked-button color="warn" (click)="toggleAddList()">Cancel</button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
