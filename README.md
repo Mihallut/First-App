@@ -6,7 +6,7 @@ docker-compose up --build
 after that navigate to http://localhost:8081/ Make sure that you do not have any applications that are using ports 8081, 5433, 5152 or you would get an error
 
 # Starting Frontend localy
-To start frontend first thing you need to go to `.\First-App-Web\`  and then install packages via
+To start frontend first thing you need to go to `.\First-App.Client\`  and then install packages via
 ```sh
 npm install
 ```
@@ -16,7 +16,7 @@ ng serve
 ```
 # Starting Backend localy
 
-to run backend first thing you need to specify your connection string `DefaultConnection` to the database. You can do it in `First-App-Api\Api\appsettings.Development.json` if you want to run development mode with your own database
+to run backend first thing you need to specify your connection string `CONNECTION_STRING` to the database. You can do it by adding .env with the connection string to your database file to .\Backend\First-App.Server\ 
 Then run 
 ```sh
 dotnet restore
