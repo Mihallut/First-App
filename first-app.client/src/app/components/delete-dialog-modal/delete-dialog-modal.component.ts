@@ -46,7 +46,7 @@ export class DeleteDialogModalComponent {
     this.service.deleteCard(this.data.componentId as Guid).subscribe({
       next: res => {
         this.service.refreshList();
-        this.service.getHistoryPaged(1)
+        this.service.updateHistoryPaged()
         this.dialogRef.close();
         this._snackBar.open('Card successfuly deleted', 'Ok', {
           horizontalPosition: this.horizontalPosition,
@@ -72,7 +72,7 @@ export class DeleteDialogModalComponent {
     this.service.deleteTaskList(this.data.componentId as Guid).subscribe({
       next: res => {
         this.service.refreshList();
-        this.service.getHistoryPaged(1)
+        this.service.updateHistoryPaged()
         this.dialogRef.close();
         this._snackBar.open('Task list successfuly deleted', 'Ok', {
           horizontalPosition: this.horizontalPosition,

@@ -20,7 +20,6 @@ namespace First_App.Server.Context
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskList>().HasIndex(t => t.Id).IsUnique();
-            modelBuilder.Entity<TaskList>().HasIndex(t => t.Name).IsUnique();
             modelBuilder.Entity<TaskList>().HasOne(t => t.Board).WithMany(b => b.TaskLists).HasForeignKey(t => t.BoardId);
 
             modelBuilder.Entity<Card>().HasIndex(t => t.Id).IsUnique();

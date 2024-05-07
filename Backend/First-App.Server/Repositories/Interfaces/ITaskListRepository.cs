@@ -4,7 +4,7 @@ namespace First_App.Server.Repositories.Interfaces
 {
     public interface ITaskListRepository
     {
-        Task<TaskList> GetTaskListByName(string name);
+        Task<TaskList> GetTaskListByName(Guid boardId, string name);
 
         Task<TaskList> GetTaskListById(Guid id);
 

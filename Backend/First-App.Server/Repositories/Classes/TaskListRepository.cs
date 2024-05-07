@@ -60,9 +60,9 @@ namespace First_App.Server.Repositories.Classes
             return result;
         }
 
-        public async Task<TaskList> GetTaskListByName(string name)
+        public async Task<TaskList> GetTaskListByName(Guid boardId, string name)
         {
-            var result = await _context.TaskLists.Include(x => x.Cards).FirstOrDefaultAsync(x => x.Name.Contains(name));
+            var result = await _context.TaskLists.Include(x => x.Cards).FirstOrDefaultAsync(x => x.Name == name && x.BoardId == boardId);
             return result;
         }
 

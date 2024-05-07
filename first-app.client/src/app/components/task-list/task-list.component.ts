@@ -25,7 +25,8 @@ export class TaskListComponent {
     public service: TaskboardService) { }
 
   editTaskListForm = this.formBuilder.group({
-    NewName: ['']
+    NewName: [''],
+    BoardId: ['']
   })
 
   openAddCardModal() {
@@ -50,6 +51,8 @@ export class TaskListComponent {
   }
 
   saveEditTaskList() {
+    this.editTaskListForm.get('BoardId')?.setValue(this.service.curentSelectedBoard?.id.toString() as string);
+
     if (this.editTaskListForm.get('NewName')?.value != this.tl.name) {
       this.service.editTaskList(this.tl.id, this.editTaskListForm)
         .subscribe({

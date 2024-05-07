@@ -8,6 +8,7 @@ namespace First_App.Server.Models.RequestModels.TaskList
     {
         [JsonIgnore]
         public Guid Id { get; set; }
-        public string newName { get; set; }
+        public string NewName { get; set; }
+        public Guid BoardId { get; set; }
     }
 }
