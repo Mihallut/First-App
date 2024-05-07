@@ -16,7 +16,7 @@ namespace First_App.Server.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet("/{boardId}")]
+        [HttpGet("getAllByBoardId/{boardId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

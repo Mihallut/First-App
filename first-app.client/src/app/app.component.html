@@ -1,8 +1,48 @@
 ﻿<mat-drawer-container class="full-height">
-    <mat-drawer #drawer [(opened)]="opened" mode="over" position="end" class="history-tab">
+    <mat-drawer #drawer [(opened)]="openedBoards" mode="over" position="start" class="history-tab">
+        <div class="mdrawer-header-item">
+            <span class="mdrawer-header-title">Boards</span>
+            <button mat-icon-button (click)="openedBoards=!openedBoards">
+                <mat-icon>close</mat-icon>
+            </button>
+        </div>
+        <div>
+            <ul style="list-style-type: none;  padding-left: 15px;">
+                <li *ngFor="let board of service.boards">
+                    <app-board-list [board]="board" [parent]="this"></app-board-list>
+                </li>
+            </ul>
+        </div>
+        <div *ngIf="!isAddingBoard" class="show-more-btn">
+            <button mat-stroked-button color="primary" (click)="toggleAddBoard()">
+                <mat-icon>
+                    add
+                </mat-icon>
+                Add board
+            </button>
+        </div>
+        <div *ngIf="isAddingBoard" class="board-add-dialog">
+            <form [formGroup]="addBoardForm">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput placeholder="Enter list name..." formControlName="Name">
+                    <mat-error *ngIf="addBoardForm.get('Name')?.errors?.['fluentValidationError']">
+                        {{ addBoardForm.get('Name')?.errors?.['fluentValidationError'] }}
+                    </mat-error>
+                </mat-form-field>
+            </form>
+
+            <div class="button-section">
+                <button mat-raised-button color="primary" (click)="saveAddBoard()">Save</button>
+                <button mat-stroked-button color="warn" (click)="toggleAddBoard()">Cancel</button>
+            </div>
+        </div>
+    </mat-drawer>
+
+    <mat-drawer #drawer [(opened)]="openedHistory" mode="over" position="end" class="history-tab">
         <div class="mdrawer-header-item">
             <span class="mdrawer-header-title">History</span>
-            <button mat-icon-button (click)="opened=!opened">
+            <button mat-icon-button (click)="openedHistory=!openedHistory">
                 <mat-icon>close</mat-icon>
             </button>
         </div>
@@ -22,15 +62,20 @@
             </button>
         </div>
     </mat-drawer>
+
     <mat-drawer-content>
         <mat-toolbar #toolbar class="fixed-toolbar">
-            <span>My Taskboard</span>
+            <button mat-icon-button class="icon" title="Boards" (click)="openedBoards=!openedBoards">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span>{{this.service.curentSelectedBoard?.name}}</span>
             <span class="spacer"></span>
-            <button mat-icon-button class="icon" title="History" (click)="opened=!opened">
+            <button mat-icon-button class="icon" title="History" (click)="openedHistory=!openedHistory"
+                [disabled]="!this.service.curentSelectedBoard">
                 <mat-icon>history</mat-icon>
             </button>
         </mat-toolbar>
         <mat-toolbar #placeholder></mat-toolbar>
-        <app-taskboard></app-taskboard>
+        <app-taskboard *ngIf="this.service.curentSelectedBoard"></app-taskboard>
     </mat-drawer-content>
 </mat-drawer-container>

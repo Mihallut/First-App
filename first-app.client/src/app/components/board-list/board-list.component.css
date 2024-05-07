@@ -1,0 +1,21 @@
+board-title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.warn-button .mat-icon,
+.warn-button span {
+    color: red;
+}
+
+.board-title {
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.board-header-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

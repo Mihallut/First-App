@@ -30,6 +30,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCardModalComponent } from './components/add-card-modal/add-card-modal.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogModalComponent } from './components/delete-dialog-modal/delete-dialog-modal.component';
+import { BoardListComponent } from './components/board-list/board-list.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DeleteDialogModalComponent } from './components/delete-dialog-modal/del
     CardModalComponent,
     EditCardModalComponent,
     AddCardModalComponent,
-    DeleteDialogModalComponent
+    DeleteDialogModalComponent,
+    BoardListComponent
   ],
   imports: [
     BrowserModule,

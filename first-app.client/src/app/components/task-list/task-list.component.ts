@@ -47,7 +47,6 @@ export class TaskListComponent {
     } else {
       this.editTaskListForm.reset();
     }
-
   }
 
   saveEditTaskList() {

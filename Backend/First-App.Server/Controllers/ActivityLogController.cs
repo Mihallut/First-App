@@ -20,7 +20,7 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPost("/{boardId}")]
+        [HttpPost("getAllByBoardId/{boardId}")]
         public async Task<ActionResult<PagedResult<ActivityLogDto>>> GetActivityLogs(Guid boardId, [FromBody] GetActivityLogsQuery query, CancellationToken cancellationToken)
         {
             query.BoardId = boardId;
