@@ -12,5 +12,7 @@
         public string? ChangedFieldName { get; set; }
         public uint ActivityLogTypeId { get; set; }
         public ActivityLogType ActivityLogType { get; set; }
+        public Board Board { get; set; }
+        public Guid BoardId { get; set; }
     }
 }

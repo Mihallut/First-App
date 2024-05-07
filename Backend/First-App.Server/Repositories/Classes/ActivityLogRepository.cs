@@ -21,10 +21,10 @@ namespace First_App.Server.Repositories.Classes
             await _context.SaveChangesAsync();
         }
 
-        public async Task<(IEnumerable<ActivityLog>, int)> GetActivityLogs(int pageNumber, int pageSize, SortField? sortField, SortOrder? sortOrder)
+        public async Task<(IEnumerable<ActivityLog>, int)> GetActivityLogs(Guid boardId, int pageNumber, int pageSize, SortField? sortField, SortOrder? sortOrder)
         {
             var query = _context.ActivityLogs
-                .Include(al => al.ActivityLogType)
+                .Include(al => al.ActivityLogType).Where(al => al.BoardId == boardId)
                 .AsQueryable();
 
             var orderedQuery = ApplySorting(query, sortField, sortOrder == SortOrder.Ascending);

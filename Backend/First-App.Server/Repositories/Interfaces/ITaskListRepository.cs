@@ -12,7 +12,7 @@ namespace First_App.Server.Repositories.Interfaces
 
         Task<TaskList> AddTaskList(TaskList taskList);
 
-        Task<List<TaskList>> GetAllTaskLists();
+        Task<List<TaskList>> GetAllTaskLists(Guid boardId);
 
         Task<TaskList> EditTaskList(Guid id, string newName);
 

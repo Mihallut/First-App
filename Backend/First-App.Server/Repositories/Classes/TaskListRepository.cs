@@ -36,9 +36,9 @@ namespace First_App.Server.Repositories.Classes
             return await GetTaskListById(id);
         }
 
-        public async Task<List<TaskList>> GetAllTaskLists()
+        public async Task<List<TaskList>> GetAllTaskLists(Guid boardId)
         {
-            var result = await _context.TaskLists.Include(tl => tl.Cards).ThenInclude(c => c.Priority).ToListAsync();
+            var result = await _context.TaskLists.Include(tl => tl.Cards).ThenInclude(c => c.Priority).Where(tl => tl.BoardId == boardId).ToListAsync();
             var resultOrdered = ApplySorting(result).ToList();
             return resultOrdered;
         }

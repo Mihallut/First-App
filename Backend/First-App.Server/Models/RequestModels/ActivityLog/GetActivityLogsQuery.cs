@@ -8,6 +8,8 @@ namespace First_App.Server.Models.RequestModels.ActivityLog
 {
     public class GetActivityLogsQuery : IRequest<PagedResult<ActivityLogDto>>
     {
+        [JsonIgnore]
+        public Guid BoardId { get; set; }
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 20;
 

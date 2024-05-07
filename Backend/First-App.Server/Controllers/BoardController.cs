@@ -1,5 +1,5 @@
 ﻿using First_App.Server.Models.DTOs;
-using First_App.Server.Models.RequestModels.TaskList;
+using First_App.Server.Models.RequestModels.Board;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,23 +7,23 @@ namespace First_App.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TaskListController : ControllerBase
+    public class BoardController : ControllerBase
     {
         private readonly IMediator _mediator;
 
-        public TaskListController(IMediator mediator)
+        public BoardController(IMediator mediator)
         {
             _mediator = mediator;
         }
 
-        [HttpGet("/{boardId}")]
+        [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TaskListDto>> GetAllTaskLists(Guid boardId, CancellationToken cancellationToken)
+        public async Task<ActionResult<BoardDto>> GetAllBoards(CancellationToken cancellationToken)
         {
-            var taskList = await _mediator.Send(new GetAllTaskListsQuery { BoardId = boardId }, cancellationToken);
+            var taskList = await _mediator.Send(new GetAllBoardsQuery(), cancellationToken);
             return Ok(taskList);
         }
 
@@ -31,7 +31,7 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TaskListDto>> AddTaskList([FromBody] CreateTaskListCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<BoardDto>> AddBoard([FromBody] CreateBoardCommand command, CancellationToken cancellationToken)
         {
             var taskList = await _mediator.Send(command, cancellationToken);
             return Ok(taskList);
@@ -42,7 +42,7 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TaskListDto>> EditTaskList(Guid id, [FromBody] EditTaskListCommand command, CancellationToken cancellationToken)
+        public async Task<ActionResult<BoardDto>> EditBoard(Guid id, [FromBody] EditBoardCommand command, CancellationToken cancellationToken)
         {
             command.Id = id;
             var taskList = await _mediator.Send(command, cancellationToken);
@@ -54,9 +54,9 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<TaskListDto>> DeleteTaskList(Guid id, CancellationToken cancellationToken)
+        public async Task<ActionResult<TaskListDto>> DeleteBoard(Guid id, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new DeleteTaskListCommand { Id = id }, cancellationToken);
+            await _mediator.Send(new DeleteBoardCommand { Id = id }, cancellationToken);
             return NoContent();
         }
     }
