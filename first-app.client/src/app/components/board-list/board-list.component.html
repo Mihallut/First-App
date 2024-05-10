@@ -19,9 +19,9 @@
         <form [formGroup]="editBoardForm">
             <mat-form-field>
                 <mat-label>Name</mat-label>
-                <input matInput placeholder="Enter list name..." formControlName="NewName">
-                <mat-error *ngIf="editBoardForm.get('NewName')?.errors?.['fluentValidationError']">
-                    {{ editBoardForm.get('NewName')?.errors?.['fluentValidationError'] }}
+                <input matInput placeholder="Enter list name..." formControlName="Name">
+                <mat-error *ngIf="editBoardForm.get('Name')?.errors?.['fluentValidationError']">
+                    {{ editBoardForm.get('Name')?.errors?.['fluentValidationError'] }}
                 </mat-error>
             </mat-form-field>
         </form>

@@ -4,6 +4,10 @@ import { Guid } from 'guid-typescript';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
 import { DeleteDialogData } from 'src/app/shared/models/delete-dialog-data.model';
 import { TaskboardService } from 'src/app/shared/taskboard.service';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app.state';
+import * as BoardsAction from 'src/app/store/boards/boards.actions'
+import * as selectors from 'src/app/store/boards/boards.selectors';
 
 @Component({
   selector: 'app-delete-dialog-modal',
@@ -19,7 +23,8 @@ export class DeleteDialogModalComponent {
     public dialogRef: MatDialogRef<DeleteDialogModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DeleteDialogData,
     private _snackBar: MatSnackBar,
-    public service: TaskboardService,) { }
+    public service: TaskboardService,
+    private store: Store<AppState>) { }
 
   onDeleteClick(): void {
     if (this.data.componentType == 'card') {
@@ -95,29 +100,7 @@ export class DeleteDialogModalComponent {
   }
 
   private deleteBoardFunc() {
-    this.service.deleteBoard(this.data.componentId as Guid).subscribe({
-      next: res => {
-        if (this.service.curentSelectedBoard?.id == this.data.componentId) {
-          this.service.curentSelectedBoard = null
-        }
-        this.service.getBoards();
-        this.dialogRef.close();
-        this._snackBar.open('Board successfuly deleted', 'Ok', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-          panelClass: ['success-snackbar'],
-          duration: 3000
-        });
-      },
-      error: err => {
-        this._snackBar.open('Server respond with status code ' + err.status, 'Ok', {
-          horizontalPosition: this.horizontalPosition,
-          verticalPosition: this.verticalPosition,
-          panelClass: ['error-snackbar'],
-          duration: 10000
-        });
-        console.log(err);
-      }
-    });
+    this.store.dispatch(BoardsAction.deleteBoard({ boardId: this.data.componentId }));
+    this.dialogRef.close();
   }
 }

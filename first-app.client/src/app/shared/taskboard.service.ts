@@ -4,17 +4,17 @@ import { environment } from "src/environments/environment";
 import { TaskList } from "./models/taskList.model";
 import { HistoryPaged } from "./models/history-paged.model";
 import { Guid } from "guid-typescript";
-import { AddEditCard } from "./models/add-edit-card.model";
 import { Card } from "./models/card.model";
 import { FormGroup } from "@angular/forms";
-import { Board } from "./models/board.model";
+import { Board } from "./models/board/board.model";
+import { Observable } from "rxjs";
+import { CreateBoardModel } from "./models/board/create-board.model";
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class TaskboardService {
-    boards: Board[] = [];
     taskLists: TaskList[] = [];
     historyPaged: HistoryPaged = {
         items: [],
@@ -67,23 +67,16 @@ export class TaskboardService {
 
 
 
-    getBoards() {
-        this.http.get(this.urlBoards).subscribe({
-            next: res => {
-                this.boards = res as Board[];
-            },
-            error: err => {
-                console.log(err)
-            }
-        })
+    getBoards(): Observable<Board[]> {
+        return this.http.get<Board[]>(this.urlBoards);
     }
 
-    addBoard(addBoardForm: FormGroup) {
-        return this.http.post(this.urlBoardAdd, addBoardForm.value);
+    addBoard(board: CreateBoardModel): Observable<Board> {
+        return this.http.post<Board>(this.urlBoardAdd, board);
     }
 
-    editBoard(_boardId: Guid, editBoardForm: FormGroup) {
-        return this.http.patch(this.urlBoardEdit + '/' + _boardId, editBoardForm.value);
+    editBoard(_boardId: Guid, board: CreateBoardModel): Observable<Board> {
+        return this.http.patch<Board>(this.urlBoardEdit + '/' + _boardId, board);
     }
 
     deleteBoard(_boardId: Guid) {
