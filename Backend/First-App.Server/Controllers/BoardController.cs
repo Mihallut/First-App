@@ -1,5 +1,7 @@
-﻿using First_App.Server.Models.DTOs;
+﻿using First_App.Server.AbstractValidators.Board;
+using First_App.Server.Models.DTOs;
 using First_App.Server.Models.RequestModels.Board;
+using First_App.Server.Repositories.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,10 +12,11 @@ namespace First_App.Server.Controllers
     public class BoardController : ControllerBase
     {
         private readonly IMediator _mediator;
-
-        public BoardController(IMediator mediator)
+        private readonly IBoardRepository _boardRepository;
+        public BoardController(IMediator mediator, IBoardRepository boardRepository)
         {
             _mediator = mediator;
+            _boardRepository = boardRepository;
         }
 
         [HttpGet]
@@ -56,6 +59,15 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TaskListDto>> DeleteBoard(Guid id, CancellationToken cancellationToken)
         {
+            var validator = new DeleteBoardCommandValidator(_boardRepository);
+            var command = new DeleteBoardCommand { Id = id };
+            var validationResult = validator.Validate(command);
+
+            if (!validationResult.IsValid)
+            {
+                return NotFound(validationResult);
+            }
+
             await _mediator.Send(new DeleteBoardCommand { Id = id }, cancellationToken);
             return NoContent();
         }
