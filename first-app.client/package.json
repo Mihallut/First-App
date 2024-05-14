@@ -9,7 +9,9 @@
     "test": "ng test",
     "prestart": "node aspnetcore-https",
     "start:windows": "ng serve --ssl --ssl-cert \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.pem\" --ssl-key \"%APPDATA%\\ASP.NET\\https\\%npm_package_name%.key\" --host=127.0.0.1",
-    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=127.0.0.1"
+    "start:default": "ng serve --ssl --ssl-cert \"$HOME/.aspnet/https/${npm_package_name}.pem\" --ssl-key \"$HOME/.aspnet/https/${npm_package_name}.key\" --host=127.0.0.1",
+    "storybook": "ng run first-app.client:storybook",
+    "build-storybook": "ng run first-app.client:build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -39,9 +41,17 @@
     "@angular-devkit/build-angular": "^16.2.3",
     "@angular/cli": "~16.2.3",
     "@angular/compiler-cli": "^16.2.0",
+    "@chromatic-com/storybook": "^1.3.5",
+    "@storybook/addon-essentials": "^8.0.10",
+    "@storybook/addon-interactions": "^8.0.10",
+    "@storybook/addon-links": "^8.0.10",
+    "@storybook/angular": "^8.0.10",
+    "@storybook/blocks": "^8.0.10",
+    "@storybook/test": "^8.0.10",
     "@types/jest": "^29.5.12",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
+    "storybook": "^8.0.10",
     "typescript": "~5.1.3"
   }
 }
