@@ -8,6 +8,6 @@ namespace First_App.Server.Models.RequestModels.Board
     {
         [JsonIgnore]
         public Guid Id { get; set; }
-        public string newName { get; set; }
+        public string Name { get; set; }
     }
 }

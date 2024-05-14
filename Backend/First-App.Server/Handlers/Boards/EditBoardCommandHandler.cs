@@ -19,7 +19,7 @@ namespace First_App.Server.Handlers.Boards
 
         public async Task<BoardDto> Handle(EditBoardCommand request, CancellationToken cancellationToken)
         {
-            var result = await _boardRepository.EditBoard(request.Id, request.newName);
+            var result = await _boardRepository.EditBoard(request.Id, request.Name);
             var resultDto = _mapper.Map<BoardDto>(result);
             return resultDto;
         }

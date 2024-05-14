@@ -12,7 +12,7 @@ namespace First_App.Server.AbstractValidators.Board
         {
             _boardRepository = boardRepository;
 
-            RuleFor(x => x.newName)
+            RuleFor(x => x.Name)
                 .NotEmpty()
                 .Length(1, 60)
                 .Matches(@"^[A-Za-z0-9\s-]*$")

@@ -1,5 +1,5 @@
 import { HttpClientModule } from '@angular/common/http';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -31,6 +31,14 @@ import { AddCardModalComponent } from './components/add-card-modal/add-card-moda
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DeleteDialogModalComponent } from './components/delete-dialog-modal/delete-dialog-modal.component';
 import { BoardListComponent } from './components/board-list/board-list.component';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { BoardReducers } from './store/boards/boards.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { BoardsEffects } from './store/boards/boards.effects';
+
+
 
 @NgModule({
   declarations: [
@@ -66,9 +74,18 @@ import { BoardListComponent } from './components/board-list/board-list.component
     AutosizeModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    StoreModule.forRoot({ boards: BoardReducers }),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true
+    }),
+    EffectsModule.forRoot(),
+    EffectsModule.forFeature([BoardsEffects])
   ],
-  providers: [],
+  providers: [
+  ],
   bootstrap: [AppComponent],
   exports: [
   ]

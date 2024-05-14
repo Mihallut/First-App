@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ActivityLog } from 'src/app/shared/models/activity-log.model';
+import { ActivityLog } from 'src/app/shared/models/activity-log/activity-log.model';
 import { DatePipe } from '@angular/common';
 
 

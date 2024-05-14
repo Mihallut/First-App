@@ -8,7 +8,7 @@
         </div>
         <div>
             <ul style="list-style-type: none;  padding-left: 15px;">
-                <li *ngFor="let board of service.boards">
+                <li *ngFor="let board of Boards$ | async">
                     <app-board-list [board]="board" [parent]="this"></app-board-list>
                 </li>
             </ul>

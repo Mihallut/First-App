@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { TaskboardService } from '../../shared/taskboard.service';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
-import { Board } from 'src/app/shared/models/board.model';
+import { Board } from 'src/app/shared/models/board/board.model';
 import { RunGuardsAndResolvers } from '@angular/router';
 import { Guid } from 'guid-typescript';
 
