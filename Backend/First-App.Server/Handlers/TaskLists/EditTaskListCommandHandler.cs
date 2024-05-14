@@ -19,7 +19,7 @@ namespace First_App.Server.Handlers.TaskLists
 
         public async Task<TaskListDto> Handle(EditTaskListCommand request, CancellationToken cancellationToken)
         {
-            var result = await _taskListRepository.EditTaskList(request.Id, request.newName);
+            var result = await _taskListRepository.EditTaskList(request.Id, request.NewName);
             var resultDto = _mapper.Map<TaskListDto>(result);
             return resultDto;
         }

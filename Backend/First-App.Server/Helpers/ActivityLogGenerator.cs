@@ -23,6 +23,7 @@ namespace First_App.Server.Helpers
             {
                 throw new NullReferenceException("Provided activity log type name does not exist in database.");
             }
+            var cardTaskList = await _taskListRepository.GetTaskListById(card.TaskListId);
             Models.ActivityLog activityLog = new Models.ActivityLog
             {
                 Id = Guid.NewGuid(),
@@ -30,8 +31,9 @@ namespace First_App.Server.Helpers
                 ChangedCardTitle = card.Title,
                 CreationDate = DateTime.Now.ToUniversalTime(),
                 ChangedFieldName = nameof(card.TaskList),
-                ValueAfter = await _taskListRepository.GetTaskListNameById(card.TaskListId),
-                ActivityLogTypeId = logType.Id
+                ValueAfter = cardTaskList.Name,
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardTaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -43,15 +45,17 @@ namespace First_App.Server.Helpers
             {
                 throw new NullReferenceException("Provided activity log type name does not exist in database.");
             }
+            var cardTaskList = await _taskListRepository.GetTaskListById(card.TaskListId);
             Models.ActivityLog activityLog = new Models.ActivityLog
             {
                 Id = Guid.NewGuid(),
                 ChangedCardId = card.Id,
                 ChangedCardTitle = card.Title,
                 ChangedFieldName = nameof(card.TaskList),
-                ValueBefore = await _taskListRepository.GetTaskListNameById(card.TaskListId),
+                ValueBefore = cardTaskList.Name,
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardTaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -92,7 +96,8 @@ namespace First_App.Server.Helpers
                 ValueBefore = await _cardRepository.GetPriorityNameById(cardBeforeEdit.PriorityId),
                 ValueAfter = await _cardRepository.GetPriorityNameById(editedCard.PriorityId),
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardBeforeEdit.TaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -109,7 +114,8 @@ namespace First_App.Server.Helpers
                 ValueBefore = await _taskListRepository.GetTaskListNameById(cardBeforeEdit.TaskListId),
                 ValueAfter = await _taskListRepository.GetTaskListNameById(editedCard.TaskListId),
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardBeforeEdit.TaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -124,7 +130,8 @@ namespace First_App.Server.Helpers
                 ChangedCardTitle = editedCard.Title,
                 ChangedFieldName = nameof(cardBeforeEdit.Description),
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardBeforeEdit.TaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -141,7 +148,8 @@ namespace First_App.Server.Helpers
                 ValueBefore = cardBeforeEdit.DueDate.ToString(),
                 ValueAfter = editedCard.DueDate.ToString(),
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardBeforeEdit.TaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }
@@ -158,7 +166,8 @@ namespace First_App.Server.Helpers
                 ValueBefore = cardBeforeEdit.Title,
                 ValueAfter = editedCard.Title,
                 CreationDate = DateTime.Now.ToUniversalTime(),
-                ActivityLogTypeId = logType.Id
+                ActivityLogTypeId = logType.Id,
+                BoardId = cardBeforeEdit.TaskList.BoardId
             };
             await _activityLogRepository.AddActivityLog(activityLog);
         }

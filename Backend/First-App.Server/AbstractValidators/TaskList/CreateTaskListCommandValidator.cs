@@ -17,13 +17,13 @@ namespace First_App.Server.AbstractValidators.TaskList
                 .Length(1, 300)
                 .Matches(@"^[A-Za-z0-9\s-]*$")
                 .WithMessage("Project name must be at least 1 character long and no longer than 300 characters. You may use Latin letters only. Digits, special symbols, hyphens and spaces are allowed")
-                .Must(BeUniqueName)
+                .Must((model, Name) => BeUniqueName(model.BoardId, Name))
                 .WithMessage("This task list already created.");
         }
 
-        private bool BeUniqueName(string name)
+        private bool BeUniqueName(Guid boardId, string name)
         {
-            var taskList = _taskListRepository.GetTaskListByName(name);
+            var taskList = _taskListRepository.GetTaskListByName(boardId, name);
             return taskList.Result == null;
         }
     }

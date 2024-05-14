@@ -28,6 +28,9 @@ export class DeleteDialogModalComponent {
     else if (this.data.componentType == 'taskList') {
       this.deleteTaskListFunc()
     }
+    else if (this.data.componentType == 'board') {
+      this.deleteBoardFunc()
+    }
     else {
       this._snackBar.open('Unknown command', 'Ok', {
         horizontalPosition: this.horizontalPosition,
@@ -43,7 +46,7 @@ export class DeleteDialogModalComponent {
     this.service.deleteCard(this.data.componentId as Guid).subscribe({
       next: res => {
         this.service.refreshList();
-        this.service.getHistoryPaged(1)
+        this.service.updateHistoryPaged()
         this.dialogRef.close();
         this._snackBar.open('Card successfuly deleted', 'Ok', {
           horizontalPosition: this.horizontalPosition,
@@ -69,7 +72,7 @@ export class DeleteDialogModalComponent {
     this.service.deleteTaskList(this.data.componentId as Guid).subscribe({
       next: res => {
         this.service.refreshList();
-        this.service.getHistoryPaged(1)
+        this.service.updateHistoryPaged()
         this.dialogRef.close();
         this._snackBar.open('Task list successfuly deleted', 'Ok', {
           horizontalPosition: this.horizontalPosition,
@@ -78,6 +81,33 @@ export class DeleteDialogModalComponent {
           duration: 3000
         });
 
+      },
+      error: err => {
+        this._snackBar.open('Server respond with status code ' + err.status, 'Ok', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['error-snackbar'],
+          duration: 10000
+        });
+        console.log(err);
+      }
+    });
+  }
+
+  private deleteBoardFunc() {
+    this.service.deleteBoard(this.data.componentId as Guid).subscribe({
+      next: res => {
+        if (this.service.curentSelectedBoard?.id == this.data.componentId) {
+          this.service.curentSelectedBoard = null
+        }
+        this.service.getBoards();
+        this.dialogRef.close();
+        this._snackBar.open('Board successfuly deleted', 'Ok', {
+          horizontalPosition: this.horizontalPosition,
+          verticalPosition: this.verticalPosition,
+          panelClass: ['success-snackbar'],
+          duration: 3000
+        });
       },
       error: err => {
         this._snackBar.open('Server respond with status code ' + err.status, 'Ok', {

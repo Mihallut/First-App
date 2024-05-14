@@ -15,11 +15,12 @@ namespace First_App.Server.Context
         public DbSet<Priority> Priorities { get; set; }
         public DbSet<ActivityLog> ActivityLogs { get; set; }
         public DbSet<ActivityLogType> ActivityLogTypes { get; set; }
+        public DbSet<Board> Boards { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<TaskList>().HasIndex(t => t.Id).IsUnique();
-            modelBuilder.Entity<TaskList>().HasIndex(t => t.Name).IsUnique();
+            modelBuilder.Entity<TaskList>().HasOne(t => t.Board).WithMany(b => b.TaskLists).HasForeignKey(t => t.BoardId);
 
             modelBuilder.Entity<Card>().HasIndex(t => t.Id).IsUnique();
             modelBuilder.Entity<Card>().HasOne(x => x.TaskList)
@@ -31,7 +32,13 @@ namespace First_App.Server.Context
             modelBuilder.Entity<ActivityLog>().HasIndex(x => x.Id).IsUnique();
             modelBuilder.Entity<ActivityLogType>().HasIndex(x => x.Id).IsUnique();
             modelBuilder.Entity<ActivityLog>().HasOne(x => x.ActivityLogType).WithMany(x => x.ActivityLogs).HasForeignKey(x => x.ActivityLogTypeId);
-            modelBuilder.Entity<ActivityLog>().HasOne(x => x.ChangedCard).WithMany(x => x.ActivityLogs).HasForeignKey(x => x.ChangedCardId);
+            modelBuilder.Entity<ActivityLog>().HasOne(x => x.ChangedCard).WithMany(x => x.ActivityLogs).HasForeignKey(x => x.ChangedCardId).OnDelete(DeleteBehavior.SetNull);
+            modelBuilder.Entity<ActivityLog>().HasOne(x => x.Board).WithMany(b => b.ActivityLogs).HasForeignKey(x => x.BoardId).OnDelete(DeleteBehavior.Cascade);
+
+
+            modelBuilder.Entity<Board>().HasIndex(t => t.Id).IsUnique();
+            modelBuilder.Entity<Board>().HasIndex(t => t.Name).IsUnique();
+
 
             modelBuilder.Entity<ActivityLogType>().HasData(
                 new ActivityLogType { Id = 1, Name = "Create" },

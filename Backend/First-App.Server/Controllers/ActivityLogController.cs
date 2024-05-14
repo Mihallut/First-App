@@ -20,9 +20,10 @@ namespace First_App.Server.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        [HttpPost]
-        public async Task<ActionResult<PagedResult<ActivityLogDto>>> GetActivityLogs([FromBody] GetActivityLogsQuery query, CancellationToken cancellationToken)
+        [HttpPost("getAllByBoardId/{boardId}")]
+        public async Task<ActionResult<PagedResult<ActivityLogDto>>> GetActivityLogs(Guid boardId, [FromBody] GetActivityLogsQuery query, CancellationToken cancellationToken)
         {
+            query.BoardId = boardId;
             var result = await _mediator.Send(query, cancellationToken);
 
             return Ok(result);

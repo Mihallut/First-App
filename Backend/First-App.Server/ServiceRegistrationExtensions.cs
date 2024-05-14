@@ -27,6 +27,7 @@ namespace First_App.Server
             services.AddScoped<ICardRepository, CardRepository>();
             services.AddScoped<IActivityLogRepository, ActivityLogRepository>();
             services.AddScoped<IActivityLogGenerator, ActivityLogGenerator>();
+            services.AddScoped<IBoardRepository, BoardRepository>();
             return services;
         }
     }

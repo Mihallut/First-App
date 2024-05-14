@@ -18,7 +18,7 @@ namespace First_App.Server.Handlers.TaskLists
         }
         public async Task<List<TaskListDto>> Handle(GetAllTaskListsQuery request, CancellationToken cancellationToken)
         {
-            var result = await _taskListRepository.GetAllTaskLists();
+            var result = await _taskListRepository.GetAllTaskLists(request.BoardId);
             if (result.Count == 0)
             {
                 return null;

@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { TaskboardService } from '../../shared/taskboard.service';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar } from '@angular/material/snack-bar';
+import { Board } from 'src/app/shared/models/board.model';
+import { RunGuardsAndResolvers } from '@angular/router';
+import { Guid } from 'guid-typescript';
 
 @Component({
   selector: 'app-taskboard',
@@ -9,6 +12,7 @@ import { MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition, MatSnackBar
   styleUrls: ['./taskboard.component.css']
 })
 export class TaskboardComponent implements OnInit {
+  @Input() board!: Board;
   isAddingList: boolean = false;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -20,7 +24,8 @@ export class TaskboardComponent implements OnInit {
   }
 
   addTaskListForm = this.formBuilder.group({
-    Name: ['']
+    Name: [''],
+    BoardId: ['']
   })
 
   toggleAddList() {
@@ -33,6 +38,7 @@ export class TaskboardComponent implements OnInit {
   }
 
   saveAddTaskList() {
+    this.addTaskListForm.get('BoardId')?.setValue(this.service.curentSelectedBoard?.id.toString() as string);
     this.service.addTaskList(this.addTaskListForm)
       .subscribe({
         next: res => {

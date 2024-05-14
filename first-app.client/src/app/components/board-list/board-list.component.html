@@ -1,0 +1,34 @@
+<div class="board-title">
+    <div *ngIf="!isEditingBoard" class="board-header-item">
+        <span class="board-title" (click)="onBoardClick()">{{board.name}}</span>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="toggleEditBoard()">
+                <mat-icon>edit_square</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item class="warn-button" (click)="deleteBoardClick()">
+                <mat-icon>delete</mat-icon>
+                <span>Delete board</span>
+            </button>
+        </mat-menu>
+    </div>
+    <div *ngIf="isEditingBoard" class="taskList-add-dialog">
+        <form [formGroup]="editBoardForm">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Enter list name..." formControlName="NewName">
+                <mat-error *ngIf="editBoardForm.get('NewName')?.errors?.['fluentValidationError']">
+                    {{ editBoardForm.get('NewName')?.errors?.['fluentValidationError'] }}
+                </mat-error>
+            </mat-form-field>
+        </form>
+
+        <div class="button-section">
+            <button mat-raised-button color="primary" (click)="saveEditBoard()">Save</button>
+            <button mat-stroked-button color="warn" (click)="toggleEditBoard()">Cancel</button>
+        </div>
+    </div>
+</div>
