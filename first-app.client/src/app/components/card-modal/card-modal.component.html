@@ -9,7 +9,7 @@
         <div class="card-info">
             <div class="card-header">
                 <span>
-                    <h3>{{service.curentOpenedModalCard.title}}</h3>
+                    <h3>{{this.card.title}}</h3>
                 </span>
                 <button mat-stroked-button color="primary" class="edit-button" (click)="openEditCardModal()">
                     <mat-icon>edit_square</mat-icon>
@@ -34,11 +34,11 @@
                         <mat-icon>sell</mat-icon> Priority
                     </div>
                     <span
-                        [ngStyle]="{'background-color': getPriorityColor(service.curentOpenedModalCard.priority.name)}">{{service.curentOpenedModalCard.priority.name}}</span>
+                        [ngStyle]="{'background-color': getPriorityColor(this.card.priority.name)}">{{this.card.priority.name}}</span>
                 </div>
                 <div class="card-description">
                     <h4>Description</h4>
-                    <p>{{service.curentOpenedModalCard.description}}</p>
+                    <p>{{this.card.description}}</p>
                 </div>
             </div>
         </div>

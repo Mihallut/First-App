@@ -13,6 +13,7 @@ import { Card } from 'src/app/shared/models/card.model';
   providers: [DatePipe]
 })
 export class CardModalComponent implements OnInit {
+  card: Card;
   constructor(
     public dialogRef: MatDialogRef<CardModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -20,7 +21,7 @@ export class CardModalComponent implements OnInit {
     private datePipe: DatePipe,
     public dialog: MatDialog) {
 
-    service.curentOpenedModalCard = this.data.card as Card;
+    this.card = this.data.card as Card;
   }
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class CardModalComponent implements OnInit {
   }
 
   transformDate() {
-    return this.datePipe.transform(this.service.curentOpenedModalCard.dueDate, 'EEE, dd MMM');
+    return this.datePipe.transform(this.card.dueDate, 'EEE, dd MMM');
   }
 
   getPriorityColor(priority: string) {
@@ -46,13 +47,13 @@ export class CardModalComponent implements OnInit {
 
   getLaskListName() {
     var taskLists = this.service.taskLists;
-    let cardTaskList = taskLists.find(taskList => taskList.id == this.service.curentOpenedModalCard.taskListId);
+    let cardTaskList = taskLists.find(taskList => taskList.id == this.card.taskListId);
     return cardTaskList?.name;
   }
 
   openEditCardModal() {
     this.dialog.open(EditCardModalComponent, {
-      data: { card: this.service.curentOpenedModalCard }
+      data: { card: this.card }
     });
   }
 }
